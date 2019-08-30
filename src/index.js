@@ -1,12 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+if (process.env.NODE_ENV === 'development') {
+  require('preact/debug');
+}
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { h, render } from 'preact';
+import App from './app'
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./service-worker.js', { scope: '/' }).then(function(reg) {
+
+    if(reg.installing) {
+      console.log('Service worker installing');
+    } else if(reg.waiting) {
+      console.log('Service worker installed');
+    } else if(reg.active) {
+      console.log('Service worker active');
+    }
+
+  }).catch(function(error) {
+    // registration failed
+    console.log('Registration failed with ' + error);
+  });
+}
+
+render(<App />, document.body)

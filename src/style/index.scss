@@ -1,0 +1,15 @@
+@import 'var.scss';
+@import 'util.scss';
+@import 'typo.scss';
+
+body{
+  font-family: $family;
+  font-size: $unit*2;
+  line-height: 26px;
+  margin: 0;
+  padding: 0;
+}
+.wrap{
+  padding-top: $headerHeight;
+  box-sizing: border-box;
+}
